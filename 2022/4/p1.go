@@ -1,19 +1,15 @@
 package main
 
-import(
+import (
 	"fmt"
 	"os"
-	"strings"
-	"strconv"
 	"regexp"
+	"strconv"
+	"strings"
 )
 
 func aContainsB(x ...int) bool {
-	fmt.Println(x)
-	if x[0] <= x[2] && x[1] >= x[3] {
-		return true
-	}  
-	return false
+	return x[0] <= x[2] && x[1] >= x[3]
 }
 
 func main() {
@@ -21,16 +17,16 @@ func main() {
 	re := regexp.MustCompile(`\d+`)
 	var result int
 
-	for _, pair := range(strings.Split(string(in), "\n")) {
+	for _, pair := range strings.Split(string(in), "\n") {
 		var aF []int
-		for _, x := range(re.FindAllString(pair, 4)) {
+		for _, x := range re.FindAllString(pair, 4) {
 			i, _ := strconv.Atoi(x)
 			aF = append(aF, i)
 		}
 		aB := []int{aF[2], aF[3], aF[0], aF[1]}
-		
+
 		if aContainsB(aF...) || aContainsB(aB...) {
-			result ++
+			result++
 		}
 	}
 	fmt.Println(result)

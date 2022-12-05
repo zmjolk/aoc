@@ -33,7 +33,6 @@ func main() {
 		}
 		item = maskFirst & maskSecond
 		char := bits.Len64(uint64(item))
-		fmt.Println(bits.Len64(uint64(0b10101)))
 		result += char
 	}
 	fmt.Println(result)
