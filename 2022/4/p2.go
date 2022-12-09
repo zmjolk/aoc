@@ -8,7 +8,12 @@ import (
 	"strings"
 )
 
-func aContainsB(x ...int) bool {
+type rangeSet struct {
+	aLower, aUpper int
+	bLower, bUpper int
+}
+
+func (*rangeSet) contains(x ...int) bool {
 	return !(x[0] < x[2] && x[0] < x[2] ||
 		x[0] > x[3] && x[0] > x[3])
 }
@@ -25,6 +30,7 @@ func main() {
 			i, _ := strconv.Atoi(x)
 			aF = append(aF, i)
 		}
+		r := rangeSet{aLower: aF[0], aUpper}
 		aB := []int{aF[2], aF[3], aF[0], aF[1]}
 
 		if aContainsB(aF...) || aContainsB(aB...) {

@@ -13,12 +13,12 @@ type Box struct {
 	label rune
 }
 
-type CargoYard struct {
-	towers []Tower
-}
-
 type Tower struct {
 	boxes []Box
+}
+
+type CargoYard struct {
+	towers []Tower
 }
 
 type Instruction struct {

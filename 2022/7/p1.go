@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 	// "regexp"
+	"encoding/json"
+	"fmt"
 )
 
 type FSWalker struct {
@@ -37,7 +39,6 @@ func parse(in string) *[]FSCommand {
 		opString, output, _ := strings.Cut(v, "\n")
 		opSet := strings.Split(opString, " ")
 
-		// need to set parsing cds and outs etc.
 		var this FSCommand
 		this.op = opSet[1]
 		if opSet[1] != "ls" {
@@ -119,10 +120,11 @@ func main() {
 
 	var total int
 	recurseAndPrintBig(fsWalker.Fs, "root", &total)
-	// js, _ := json.MarshalIndent(fsWalker.Fs, ", ", "  ")
-	// fmt.Println(string(js))
 
-	// fmt.Println(total)
+	// pretty print struct
+	js, _ := json.MarshalIndent(fsWalker.Fs, "", "  ")
+	fmt.Println(string(js))
+	fmt.Println(total)
 }
 
 func recurseAndPrintBig(d *Directory, name string, total *int) {
