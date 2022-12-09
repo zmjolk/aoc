@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 	// "regexp"
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 )
 
@@ -118,20 +118,21 @@ func main() {
 		fsWalker.executeCommand(command)
 	}
 
-	var total int
-	recurseAndPrintBig(fsWalker.Fs, "root", &total)
 
-	// pretty print struct
-	js, _ := json.MarshalIndent(fsWalker.Fs, "", "  ")
-	fmt.Println(string(js))
-	fmt.Println(total)
+
+	free := 70_000_000 - fsWalker.Fs.Size
+	needed := 30_000_000 - free
+
+	closest := 70_000_000
+	recurseAndFindClosest(fsWalker.Fs, needed, &closest)
+	fmt.Println(closest)
 }
 
-func recurseAndPrintBig(d *Directory, name string, total *int) {
-	if d.Size < 100000 {
-		*total += d.Size
+func recurseAndFindClosest(d *Directory, totalRequired int, closest *int) {
+	if *closest > d.Size && d.Size > totalRequired {
+		*closest = d.Size
 	}
-	for k, child := range d.Directories {
-		recurseAndPrintBig(child, k, total)
+	for _, child := range d.Directories {
+		recurseAndFindClosest(child, totalRequired, closest)
 	}
 }
