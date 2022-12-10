@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"os"
-	"strings"
 	"math"
+	"os"
+	"strconv"
+	"strings"
 )
 
 type Direction int
@@ -13,9 +13,9 @@ type Visited bool
 
 const (
 	North Direction = iota
-	East = iota
-	South = iota
-	West = iota
+	East            = iota
+	South           = iota
+	West            = iota
 )
 
 type Grid struct {
@@ -32,13 +32,12 @@ type RopeComponent struct {
 
 type Instruction struct {
 	iterations int
-	direction Direction
+	direction  Direction
 }
-
 
 func parse(in string) []Instruction {
 	var instructionSet []Instruction
-	for _, v := range(strings.Split(in, "\n")) {
+	for _, v := range strings.Split(in, "\n") {
 		set := strings.Split(v, " ")
 		iterations, _ := strconv.Atoi(set[1])
 		var direction Direction
@@ -63,13 +62,13 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 		// move head
 		switch instruction.direction {
 		case North:
-			r.head.y+=1
+			r.head.y += 1
 		case East:
-			r.head.x+=1
+			r.head.x += 1
 		case South:
-			r.head.y-=1
+			r.head.y -= 1
 		case West:
-			r.head.x-=1
+			r.head.x -= 1
 		}
 		// check tail movement
 		xDist := r.head.x - r.tail.x
@@ -78,9 +77,9 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 		if math.Abs(float64(xDist)) > 1 {
 			fmt.Println("X Dist needs moving!", r.head, r.tail)
 			if r.head.x > r.tail.x {
-				r.tail.x = r.tail.x + xDist -1  
+				r.tail.x = r.tail.x + xDist - 1
 			} else {
-				r.tail.x = r.tail.x + xDist +1
+				r.tail.x = r.tail.x + xDist + 1
 			}
 			if math.Abs(float64(yDist)) > 0 {
 				r.tail.y = r.head.y
@@ -90,9 +89,9 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 		if math.Abs(float64(yDist)) > 1 {
 			fmt.Println("Y Dist needs moving!", r.head, r.tail)
 			if r.head.y > r.tail.y {
-				r.tail.y = r.tail.y + yDist -1  
+				r.tail.y = r.tail.y + yDist - 1
 			} else {
-				r.tail.y = r.tail.y + yDist +1
+				r.tail.y = r.tail.y + yDist + 1
 			}
 			if math.Abs(float64(xDist)) > 0 {
 				r.tail.x = r.head.x
@@ -112,12 +111,11 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 
 func calcVisited(g Grid) int {
 	var total int
-	for _, d := range(g.square) {
+	for _, d := range g.square {
 		total += len(d)
 	}
 	return total
 }
-
 
 func main() {
 	in, _ := os.ReadFile("input")
@@ -135,10 +133,10 @@ func main() {
 		tail: RopeComponent{x: 0, y: 0},
 	}
 
-	for i, v := range(instructionSet) {
+	for i, v := range instructionSet {
 		fmt.Printf("executing: %#v\n", v)
 		rope.executeInstruction(v, grid)
-		if i > 20 { 
+		if i > 20 {
 			// break
 		}
 	}
