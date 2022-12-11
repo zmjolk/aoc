@@ -59,7 +59,6 @@ func parse(in string) []Instruction {
 func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 	for i := 0; i < instruction.iterations; i++ {
 		for j := 0; j < len(r.knots)-1; j++ {
-			fmt.Printf("Updating rope piece %v\n", j)
 			knot := &r.knots[j]
 			nextKnot := &r.knots[j+1]
 
@@ -77,12 +76,10 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 				}
 			}
 			// check tail movement
-			fmt.Println("calcing dists", knot, nextKnot)
 			xDist := knot.x - nextKnot.x
 			yDist := knot.y - nextKnot.y
 
 			if math.Abs(float64(xDist)) > 1 {
-				fmt.Println("X Dist needs moving! Knot", j+1, knot, nextKnot)
 				if knot.x > nextKnot.x {
 					nextKnot.x = nextKnot.x + 1
 				} else {
@@ -96,9 +93,7 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 					}
 
 				}
-				fmt.Println("X Dist moved!", xDist, knot, nextKnot)
 			} else if math.Abs(float64(yDist)) > 1 {
-				fmt.Println("Y Dist needs moving! Knot", j+1, knot, nextKnot)
 				if knot.y > nextKnot.y {
 					nextKnot.y = nextKnot.y + 1
 				} else {
@@ -111,10 +106,7 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 						nextKnot.x = nextKnot.x - 1
 					}
 				}
-				fmt.Println("Y Dist Moved!", yDist, knot, nextKnot)
 			}
-			fmt.Println(r)
-
 		}
 		finalKnot := r.knots[len(r.knots)-1]
 		// update visited map for final knot
@@ -166,8 +158,6 @@ func main() {
 		rope.knots = append(rope.knots, RopeComponent{})
 	}
 
-	fmt.Println(rope)
-
 	for i, v := range instructionSet {
 		// fmt.Printf("executing: %#v\n", v)
 		rope.executeInstruction(v, grid)
@@ -175,7 +165,6 @@ func main() {
 			// break
 		}
 	}
-	// fmt.Println(grid)
 	Visualise(grid)
 	fmt.Println(calcVisited(grid))
 }

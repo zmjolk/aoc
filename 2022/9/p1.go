@@ -75,7 +75,6 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 		yDist := r.head.y - r.tail.y
 
 		if math.Abs(float64(xDist)) > 1 {
-			fmt.Println("X Dist needs moving!", r.head, r.tail)
 			if r.head.x > r.tail.x {
 				r.tail.x = r.tail.x + xDist - 1
 			} else {
@@ -84,10 +83,8 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 			if math.Abs(float64(yDist)) > 0 {
 				r.tail.y = r.head.y
 			}
-			fmt.Println("X Dist moved!", r.head, r.tail)
 		}
 		if math.Abs(float64(yDist)) > 1 {
-			fmt.Println("Y Dist needs moving!", r.head, r.tail)
 			if r.head.y > r.tail.y {
 				r.tail.y = r.tail.y + yDist - 1
 			} else {
@@ -96,7 +93,6 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 			if math.Abs(float64(xDist)) > 0 {
 				r.tail.x = r.head.x
 			}
-			fmt.Println("Y Dist moved!", r.head, r.tail)
 		}
 
 		// update visited map
@@ -134,7 +130,6 @@ func main() {
 	}
 
 	for i, v := range instructionSet {
-		fmt.Printf("executing: %#v\n", v)
 		rope.executeInstruction(v, grid)
 		if i > 20 {
 			// break
