@@ -115,6 +115,8 @@ func main() {
 
 	lowest := math.MaxInt32
 	for _, v := range sources {
+		// probably better to adjust the algorithm rather than run it
+		// several hundred times, but its late so its good that CPU stronk
 		completed := dijkstra(graph, v)
 		if completed[end] < lowest {
 			lowest = completed[end]
