@@ -79,7 +79,7 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 			xDist := knot.x - nextKnot.x
 			yDist := knot.y - nextKnot.y
 
-			// thi is about twice as much as needed but who has the  time
+			// this is about twice as much as needed but who has the time
 			if math.Abs(float64(xDist)) > 1 {
 				if knot.x > nextKnot.x {
 					nextKnot.x += 1
@@ -92,7 +92,6 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 					} else {
 						nextKnot.y = nextKnot.y - 1
 					}
-
 				}
 			} else if math.Abs(float64(yDist)) > 1 {
 				if knot.y > nextKnot.y {

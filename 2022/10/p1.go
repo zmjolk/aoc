@@ -78,5 +78,4 @@ func main() {
 		cpuCycle(&reg, clock, &total, instruction)
 	}
 	fmt.Println(total)
-
 }
