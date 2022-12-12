@@ -79,11 +79,12 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 			xDist := knot.x - nextKnot.x
 			yDist := knot.y - nextKnot.y
 
+			// thi is about twice as much as needed but who has the  time
 			if math.Abs(float64(xDist)) > 1 {
 				if knot.x > nextKnot.x {
-					nextKnot.x = nextKnot.x + 1
+					nextKnot.x += 1
 				} else {
-					nextKnot.x = nextKnot.x - 1
+					nextKnot.x -= 1
 				}
 				if math.Abs(float64(yDist)) > 0 {
 					if knot.y > nextKnot.y {
@@ -101,9 +102,9 @@ func (r *Rope) executeInstruction(instruction Instruction, g Grid) {
 				}
 				if math.Abs(float64(xDist)) > 0 {
 					if knot.x > nextKnot.x {
-						nextKnot.x = nextKnot.x + 1
+						nextKnot.x += 1
 					} else {
-						nextKnot.x = nextKnot.x - 1
+						nextKnot.x -= 1
 					}
 				}
 			}
@@ -143,7 +144,6 @@ func Visualise(g Grid) {
 
 func main() {
 	in, _ := os.ReadFile("input")
-	// in, _ := os.ReadFile("itest")
 	instructionSet := parse(string(in))
 
 	grid := Grid{
@@ -158,12 +158,8 @@ func main() {
 		rope.knots = append(rope.knots, RopeComponent{})
 	}
 
-	for i, v := range instructionSet {
-		// fmt.Printf("executing: %#v\n", v)
+	for _, v := range instructionSet {
 		rope.executeInstruction(v, grid)
-		if i > 18 {
-			// break
-		}
 	}
 	Visualise(grid)
 	fmt.Println(calcVisited(grid))

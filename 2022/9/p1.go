@@ -135,6 +135,5 @@ func main() {
 			// break
 		}
 	}
-	// fmt.Println(grid)
 	fmt.Println(calcVisited(grid))
 }

@@ -4,6 +4,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
 	// "regexp"
 	// "encoding/json"
 	"fmt"
@@ -117,8 +118,6 @@ func main() {
 	for _, command := range *commandSet {
 		fsWalker.executeCommand(command)
 	}
-
-
 
 	free := 70_000_000 - fsWalker.Fs.Size
 	needed := 30_000_000 - free
